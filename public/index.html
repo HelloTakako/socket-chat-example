@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 16px Roboto, Arial, sans-serif; width: 100vw;}
+      #user-is-typing-message { bottom: 20px;
+    position: fixed;
+    height: 100px;
+    color: #888;}
+      #text-input { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      #text-input input { border: 0; padding: 10px; width: 87%; margin-right: 0.5%; }
+      #text-input button { width: 12%; background: #222; border: none;  color: white;}
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
+
+  </head>
+  <body>
+      <div id="root"></div>
+    <form id="nickname">
+      <label>Your Nickname: </label>
+      <input type="text"/>
+    </form>
+    <ul id="messages"></ul> 
+    <form action="" id="text-input">
+      <div id="user-is-typing-message"></div>
+      <input id="m" autocomplete="off" /><button><i class="material-icons">send</i></button>
+    </form>
+
+    <!-- it takes to load the socket.io-client, which exposes an io global (and the endpoint GET /socket.io/socket.io.js), and then connect. -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+      //when the user types in a message, the server gets it as a chat message event.
+      $(function () {
+        var socket = io();
+        $('form').submit(function(e){
+          e.preventDefault(); // prevents page reloading
+          socket.emit('chat message', $('#m').val());
+          $('#m').val('');
+          return false;
+        });
+
+        //when we capture a chat message event we’ll include it in the page
+        socket.on('chat message', function(msg){
+          $('#messages').append($('<li>').text(msg));
+        });
+
+        // show "User is typing" message
+        $('#m').keypress(function() {
+          socket.emit('user typing', 'User is typing...');
+        });
+        socket.on('user typing', function(typingMsg){
+          $('#user-is-typing-message').text(typingMsg);
+          setTimeout(function(){
+            $('#user-is-typing-message').text('');
+          }, 5000);
+        })
+      });
+    </script>
+  </body>
+</html>

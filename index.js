@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 //We define a route handler / that gets called when we hit our website home.
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/pages/index.html');
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 //listen on the connection event for incoming sockets and log it to the console.
