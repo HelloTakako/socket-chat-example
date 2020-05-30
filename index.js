@@ -4,6 +4,9 @@ var http = require('http').createServer(app);
 //initialize a new instance of socket.io by passing the http (the HTTP server) object
 var io = require('socket.io')(http);
 
+// port for Heroku deploy
+const PORT = process.env.PORT || 3000;
+
 //We define a route handler / that gets called when we hit our website home.
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/pages/index.html');
@@ -29,6 +32,6 @@ io.on('connection', (socket) => {
 });
 
 //We make the http server listen on port 3000.
-http.listen(3000, () => {
-    console.log('listening on *:3000');
+http.listen(PORT, () => {
+    console.log(`listening on ${PORT}`);
 })
