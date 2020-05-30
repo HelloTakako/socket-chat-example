@@ -20,6 +20,11 @@ io.on('connection', (socket) => {
     io.emit('chat message', msg);
   });
 
+  // show "User is typing" message when someone is typing
+  socket.on('user typing', (typingMsg) => {
+    io.emit('user typing', typingMsg);
+  });
+
   //If you want to send a message to everyone except for a certain emitting socket, we have the broadcast flag for emitting from that socket:
   // io.on('connection', (socket) => {
   //   socket.broadcast.emit('hi');
