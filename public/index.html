@@ -1,10 +1,13 @@
 <!doctype html>
 <html>
   <head>
+    <meta charset="utf-8" />
     <title>Socket.IO chat</title>
+    <meta name="description" content="This is a demo site for React.js E-commerce app.">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000" />
     <style>
       
       * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,16 +26,8 @@
 
   </head>
   <body>
-      <div id="root"></div>
-    <form id="nickname">
-      <label>Your Nickname: </label>
-      <input type="text"/>
-    </form>
-    <ul id="messages"></ul> 
-    <form action="" id="text-input">
-      <div id="user-is-typing-message"></div>
-      <input id="m" autocomplete="off" /><button><i class="material-icons">send</i></button>
-    </form>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
 
     <!-- it takes to load the socket.io-client, which exposes an io global (and the endpoint GET /socket.io/socket.io.js), and then connect. -->
     <script src="/socket.io/socket.io.js"></script>
