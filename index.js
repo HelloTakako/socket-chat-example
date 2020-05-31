@@ -1,15 +1,24 @@
+const express = require('express');
 //Express initializes app to be a function handler that you can supply to an HTTP server.
-var app = require('express')();
-var http = require('http').createServer(app);
+const app = require('express')();
+const http = require('http').createServer(app);
 //initialize a new instance of socket.io by passing the http (the HTTP server) object
-var io = require('socket.io')(http);
+const io = require('socket.io')(http);
+
+const path = require('path');
 
 // port for Heroku deploy
 const PORT = process.env.PORT || 8080;
 
 //We define a route handler / that gets called when we hit our website home.
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/build/index.html');
+// app.get('/', (req, res) => {
+//   res.sendFile(__dirname + '/build/index.html');
+// });
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 //listen on the connection event for incoming sockets and log it to the console.
