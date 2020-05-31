@@ -1,5 +1,8 @@
 /node_modules
 
+# production files
+/build
+
 # misc
 .DS_Store
 .env.local
