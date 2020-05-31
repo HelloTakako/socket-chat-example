@@ -1,9 +1,9 @@
 # Real-time Chat App
 
 ### Techs
-[React.js](https://reactjs.org/)
-[Node.js](https://nodejs.org/en/)
-[Express.js](https://expressjs.com/)
+[React.js](https://reactjs.org/)  
+[Node.js](https://nodejs.org/en/)  
+[Express.js](https://expressjs.com/)  
 [Socket.io](https://socket.io/get-started/chat/)  
   
 UI Framework:  

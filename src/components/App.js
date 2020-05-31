@@ -1,12 +1,18 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+
+import Box from '@material-ui/core/Box';
 
 import Timeline from './Timeline';
+import NicknameForm from './NicknameForm';
+import TextInput from './TextInput';
 
 function App() {
   return (
-    <Fragment>
+    <Box m={2}>
+      <NicknameForm />
       <Timeline />
-    </Fragment>
+      <TextInput />
+    </Box>
   );
 }
 

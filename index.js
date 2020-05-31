@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
   });
 });
 
-//We make the http server listen on port 3000.
+//make the http server listen on specified port.
 http.listen(PORT, () => {
     console.log(`listening on ${PORT}`);
 })
