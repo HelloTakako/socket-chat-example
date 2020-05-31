@@ -5,11 +5,11 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
 // port for Heroku deploy
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 //We define a route handler / that gets called when we hit our website home.
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/pages/index.html');
+  res.sendFile(__dirname + '/build/index.html');
 });
 
 //listen on the connection event for incoming sockets and log it to the console.
@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
   });
 });
 
-//We make the http server listen on port 3000.
+//make the http server listen on specified port.
 http.listen(PORT, () => {
     console.log(`listening on ${PORT}`);
 })
