@@ -37,9 +37,17 @@
         });
 
         // show "User is typing" message
-        $('#m').keypress(function() {
-          socket.emit('user typing', 'User is typing...');
-        });
+        const message = document.getElementById('m');
+
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+          message.ontouchstart(function() {
+            socket.emit('user typing', 'User is typing...');
+          });
+        } else {
+          $('#m').keypress(function() {
+            socket.emit('user typing', 'User is typing...');
+          });
+        }
         socket.on('user typing', function(typingMsg){
           $('#user-is-typing-message').text(typingMsg);
           setTimeout(function(){
