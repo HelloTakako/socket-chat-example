@@ -21,7 +21,7 @@
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
-  
+  "proxy": "http://localhost:8080",
   "devDependencies": {
     "nodemon": "^2.0.4"
   },

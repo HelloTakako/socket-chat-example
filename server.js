@@ -6,7 +6,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
 const path = require('path');
-// const session = require('express-session');
+const session = require('express-session');
 
 // port for Heroku deploy
 const PORT = process.env.PORT || 8080;
@@ -22,13 +22,20 @@ app.use(express.static(path.join(__dirname, 'build')));
  * Make sure this is defined before any of your routes
  * that make use of the session.
  */
-// app.set('trust proxy', 1) // trust first proxy
-// app.use(session({
-//   secret: 'keyboard cat', 
-//   cookie: { maxAge: 60000, secure: true },
-//   resave: false,
-//   saveUninitialized: false
-// }));
+app.set('trust proxy', 1) // trust first proxy
+var sess = {
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { user : '1' }
+}
+ 
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+ 
+app.use(session(sess))
 
 // let sess;
 app.get('/*', (req, res) => {
@@ -66,6 +73,14 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
+
+  // nickname setting
+  let users = [];
+  socket.on('send-nickname', function(nickname) {
+      socket.nickname = nickname;
+      users.push(socket.nickname);
+      console.log(users);
+  })
 });
 
 //make the http server listen on specified port.

@@ -65,8 +65,16 @@
 
         //when we capture a chat message event we’ll include it in the page
         socket.on('chat message', function(msg){
+          // message 
           $('#messages').append($('<li>').text(msg));
         });
+
+        // nickname emit
+        $("#filled-basic").submit(function(e){
+          e.preventDefault();
+          socket.emit('send-nickname', nickname);
+        })
+                          
       });
     </script>
   </body>
