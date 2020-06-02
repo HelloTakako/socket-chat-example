@@ -10,7 +10,7 @@ import HeroImage from '../assets/heroImage.jpg';
 function Home() {
 
     return (
-        <div>
+        <Fragment>
             <Grid
             container
             direction="row"
@@ -20,7 +20,7 @@ function Home() {
             >
                 <NicknameForm />
             </Grid>
-        </div>
+        </Fragment>
     );
 }
 

@@ -23,13 +23,13 @@ npm install
 ```
 nodemon index.js
 ```
-Server listen to port 8080.
+Server listens on port 8080.
   
 Add:  
 ```
 "proxy": "http://localhost:8080",
 ```
-in 'package.json'
+in `package.json`
   
 #### Client
 ```
