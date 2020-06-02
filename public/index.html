@@ -21,26 +21,10 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
-      //when the user types in a message, the server gets it as a chat message event.
       $(function () {
-        var socket = io();
-        $('form').submit(function(e){
-          e.preventDefault(); // prevents page reloading
-          socket.emit('chat message', $('#m').val());
-          $('#m').val('');
-          setInterval(function(){
-            $('#user-is-typing-message').text('');
-          }, 1000);
-          return false;
-        });
-
-        //when we capture a chat message event we’ll include it in the page
-        socket.on('chat message', function(msg){
-          $('#messages').append($('<li>').text(msg));
-        });
+        const socket = io();
 
         // show "User is typing" message        
-
         // on smartphone, show the message when the user focused on the message box
 
         function typingMsg(msg){
@@ -54,13 +38,16 @@
           || navigator.userAgent.match(/BlackBerry/i)
           || navigator.userAgent.match(/Windows Phone/i) )
         {
-          $("#m").on('focus', function(){
+          $("#m").on('focus', function(e){
             typingMsg('User is typing...');
           })
         } 
         else // on pc 
         {
-          $('#m').keypress(function() {
+          $('#m').keypress(function(e) {
+            if(e.which === 13){
+              return;
+            }
             typingMsg('User is typing...');
           });
         }
@@ -68,6 +55,21 @@
         socket.on('user typing', function(typingMsg){
           $('#user-is-typing-message').text(typingMsg);
         })
+
+        //when the user types in a message, the server gets it as a chat message event.
+
+        $('form').submit(function(e){
+          e.preventDefault(); // prevents page reloading
+          socket.emit('chat message', $('#m').val());
+          $('#m').val('');
+          typingMsg('');
+          return false;
+        });
+
+        //when we capture a chat message event we’ll include it in the page
+        socket.on('chat message', function(msg){
+          $('#messages').append($('<li>').text(msg));
+        });
       });
     </script>
   </body>
