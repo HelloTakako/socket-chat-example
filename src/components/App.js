@@ -2,8 +2,7 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import Box from '@material-ui/core/Box';
@@ -13,12 +12,20 @@ import { sizing } from '@material-ui/system';
 import Home from '../pages/Home';
 import Room from '../pages/Room';
 
+const useStyles = makeStyles({
+  root: {
+    height: "100vh",
+  }
+});
+
 function App() {
+  const classes = useStyles();
+
   return (
     <Router>
       <Box
       width={1}
-      height="100%">      
+      className={classes.root}>      
         <Switch>
           <Route path="/room">
             <Room />
