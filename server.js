@@ -6,6 +6,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
 const path = require('path');
+const session = require('express-session');
 
 // port for Heroku deploy
 const PORT = process.env.PORT || 8080;
@@ -17,7 +18,28 @@ const PORT = process.env.PORT || 8080;
 
 app.use(express.static(path.join(__dirname, 'build')));
 
+/* session management.
+ * Make sure this is defined before any of your routes
+ * that make use of the session.
+ */
+// app.set('trust proxy', 1) // trust first proxy
+// app.use(session({
+//   secret: 'keyboard cat', 
+//   cookie: { maxAge: 60000, secure: true },
+//   resave: false,
+//   saveUninitialized: false
+// }));
+
+let sess;
 app.get('/*', (req, res) => {
+  sess = req.session;
+  /*
+  * Here we have assign the 'session' to 'sess'.
+  * Now we can create any number of session variable we want.
+  * in PHP we do as $_SESSION['var name'].
+  */
+  sess.username; // equivalent to $_SESSION['username'] in PHP.
+
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
@@ -49,3 +71,4 @@ io.on('connection', (socket) => {
 http.listen(PORT, () => {
     console.log(`listening on ${PORT}`);
 })
+
