@@ -6,7 +6,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
 const path = require('path');
-const session = require('express-session');
+// const session = require('express-session');
 
 // port for Heroku deploy
 const PORT = process.env.PORT || 8080;
@@ -30,18 +30,19 @@ app.use(express.static(path.join(__dirname, 'build')));
 //   saveUninitialized: false
 // }));
 
-let sess;
+// let sess;
 app.get('/*', (req, res) => {
-  sess = req.session;
+  // sess = req.session;
   /*
   * Here we have assign the 'session' to 'sess'.
   * Now we can create any number of session variable we want.
   * in PHP we do as $_SESSION['var name'].
   */
-  sess.username; // equivalent to $_SESSION['username'] in PHP.
+  // sess.username; // equivalent to $_SESSION['username'] in PHP.
 
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
+
 
 //listen on the connection event for incoming sockets and log it to the console.
 //Notice that I’m not specifying any URL when I call io(), since it defaults to trying to connect to the host that serves the page.
