@@ -28,6 +28,9 @@
           e.preventDefault(); // prevents page reloading
           socket.emit('chat message', $('#m').val());
           $('#m').val('');
+          setInterval(function(){
+            $('#user-is-typing-message').text('');
+          }, 1000);
           return false;
         });
 
@@ -39,6 +42,11 @@
         // show "User is typing" message        
 
         // on smartphone, show the message when the user focused on the message box
+
+        function typingMsg(msg){
+          socket.emit('user typing', msg);
+        }
+
         if( navigator.userAgent.match(/Android/i)
           || navigator.userAgent.match(/iPhone/i)
           || navigator.userAgent.match(/iPad/i)
@@ -46,20 +54,19 @@
           || navigator.userAgent.match(/BlackBerry/i)
           || navigator.userAgent.match(/Windows Phone/i) )
         {
-          $('#m').focusin(function() {
-            socket.emit('user typing', 'User is typing...');
-          });
-        } else // on pc 
+          $("#m").on('focus', function(){
+            typingMsg('User is typing...');
+          })
+        } 
+        else // on pc 
         {
           $('#m').keypress(function() {
-            socket.emit('user typing', 'User is typing...');
+            typingMsg('User is typing...');
           });
         }
+
         socket.on('user typing', function(typingMsg){
           $('#user-is-typing-message').text(typingMsg);
-          setTimeout(function(){
-            $('#user-is-typing-message').text('');
-          }, 2000);
         })
       });
     </script>
