@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-import { Link } from "react-router-dom";
+import React from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
@@ -26,16 +24,13 @@ const useStyles = makeStyles({
 
 function NicknameForm () {
   const classes = useStyles();
-
-  const [nickname, setNickname] = useState('Anonymous');
   
   const createRoom = () => {
       // set user's nickname from user input
       const userTypedNickname = document.querySelector('input').value;
-      setNickname(userTypedNickname);
 
       //set cookie
-      document.cookie = `username=${nickname};`;
+      document.cookie = userTypedNickname !== "" ? `username=${userTypedNickname};` : "Anonymous";
 
       // jump to /room
       window.location.href = '/room';
@@ -48,7 +43,7 @@ function NicknameForm () {
           <FormControl noValidate autoComplete="off" action="" id="nickname" >
             <TextField id="nickname-value filled-basic" label="Your Nickname..." variant="filled" required style={{ margin: 8 }}/>
             <CardActions>
-              <Button variant="outlined" color="primary" onClick={createRoom} className={classes.button}>Create Your Room</Button>
+              <Button variant="outlined" color="primary" onClick={createRoom} className={classes.button}>Join the Room</Button>
             </CardActions>
           </FormControl>
         </CardContent>

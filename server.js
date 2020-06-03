@@ -22,7 +22,6 @@ app.use(express.static(path.join(__dirname, 'build')));
  * Make sure this is defined before any of your routes
  * that make use of the session.
  */
-app.set('trust proxy', 1) // trust first proxy
 var sess = {
   secret: 'keyboard cat',
   resave: false,
