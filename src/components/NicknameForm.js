@@ -18,23 +18,37 @@ const useStyles = makeStyles({
   button: {
     fontSize: "2rem",
     fontWeight: "bold",
-    marginTop: "10px"
+    marginTop: "10px",
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    color: 'white',
   }
 });
 
 function NicknameForm () {
   const classes = useStyles();
   
-  const createRoom = () => {
+  const joinPublicRoom = () => {
       // set user's nickname from user input
       const userTypedNickname = document.querySelector('input').value;
 
       //set cookie
+      // expire time
+      const expireHours = 2;
+      let date = new Date();
+      date.setTime(date.getTime()+(expireHours*60*60*1000));
+      const expires = date.toGMTString();
       document.cookie = userTypedNickname !== "" ? `username=${userTypedNickname};` : "Anonymous";
 
       // jump to /room
       window.location.href = '/room';
   }
+
+  const createRoom = () => {
+    console.log("under construction");
+}
 
   return (
     <div className={classes.root}>
@@ -43,7 +57,8 @@ function NicknameForm () {
           <FormControl noValidate autoComplete="off" action="" id="nickname" >
             <TextField id="nickname-value filled-basic" label="Your Nickname..." variant="filled" required style={{ margin: 8 }}/>
             <CardActions>
-              <Button variant="outlined" color="primary" onClick={createRoom} className={classes.button}>Join the Room</Button>
+              <Button variant="outlined" color="primary" onClick={joinPublicRoom} className={classes.button}>Join the Public Room</Button>
+              {/* <Button disabled variant="outlined" color="primary" onClick={createRoom} className={classes.button}>Create a Room</Button> */}
             </CardActions>
           </FormControl>
         </CardContent>

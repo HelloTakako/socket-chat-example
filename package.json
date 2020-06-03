@@ -19,7 +19,6 @@
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
-
   "devDependencies": {
     "nodemon": "^2.0.4"
   },

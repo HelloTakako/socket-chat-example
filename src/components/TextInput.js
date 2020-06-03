@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     textInput: {
-        width: '80vw',
+      width: '65vw',
     },
     submitButton: {
         width: '10vw',
@@ -26,7 +26,7 @@ function TextInput () {
 
   return (
     <form className={classes.root} action="" id="text-input">     
-        <input type="text" id="m" aria-describedby="my-helper-text" className={classes.textInput} />
+        <input type="text" id="m" className={classes.textInput} />
         <button><i className="material-icons">send</i></button>
     </form>
   );
