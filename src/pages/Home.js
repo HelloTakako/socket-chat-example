@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import NicknameForm from '../components/NicknameForm';
 import HeroImage from '../assets/heroImage.jpg';
 
-function Home() {
+function Home(props) {
 
     return (
         <Fragment>
@@ -16,7 +16,7 @@ function Home() {
             alignItems="center"
             style={{backgroundImage: `url(${HeroImage})`, backgroundSize: "cover"}}
             >
-                <NicknameForm />
+                <NicknameForm socket={props.socket} />
             </Grid>
         </Fragment>
     );

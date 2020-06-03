@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 
   
 
-export default function Timeline() {
+export default function Timeline(props) {
     const classes = useStyles();
 
     return (

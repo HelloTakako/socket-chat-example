@@ -27,28 +27,37 @@ const useStyles = makeStyles({
   }
 });
 
-function NicknameForm () {
+function NicknameForm (props) {
   const classes = useStyles();
   
   const joinPublicRoom = () => {
       // set user's nickname from user input
       const userTypedNickname = document.querySelector('input').value;
 
+      //allow user to join a room if they typed their nickname
+      if(userTypedNickname !== ""){
+
       //set cookie
       // expire time
-      const expireHours = 2;
-      let date = new Date();
-      date.setTime(date.getTime()+(expireHours*60*60*1000));
-      const expires = date.toGMTString();
-      document.cookie = userTypedNickname !== "" ? `username=${userTypedNickname};` : "Anonymous";
+      // const expireHours = 2;
+      // let date = new Date();
+      // date.setTime(date.getTime()+(expireHours*60*60*1000));
+      // const expires = ` expires=${date.toGMTString()};`;
+      // console.log(expires);
+      // const nickname = userTypedNickname;
+      document.cookie = `username=${userTypedNickname}; path=/room; SameSite=Strict; Secure; HttpOnly`;
+      // document.cookie = nickname + expires + " HttpOnly;";
 
       // jump to /room
-      window.location.href = '/room';
+      setTimeout(function(){window.location.href = '/room';}, 500);
+    } else {
+      alert('You forgot to enter your nickname!');
+    }
   }
 
-  const createRoom = () => {
-    console.log("under construction");
-}
+//   const createRoom = () => {
+//     console.log("under construction");
+// }
 
   return (
     <div className={classes.root}>

@@ -6,49 +6,16 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
 const path = require('path');
-const session = require('express-session');
+// const session = require('express-session');
 
 // port for Heroku deploy
 const PORT = process.env.PORT || 8080;
 
-//We define a route handler / that gets called when we hit our website home.
-// app.get('/', (req, res) => {
-//   res.sendFile(__dirname + '/build/index.html');
-// });
-
 app.use(express.static(path.join(__dirname, 'build')));
 
-/* session management.
- * Make sure this is defined before any of your routes
- * that make use of the session.
- */
-var sess = {
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { user : '1' }
-}
- 
-if (app.get('env') === 'production') {
-  app.set('trust proxy', 1) // trust first proxy
-  sess.cookie.secure = true // serve secure cookies
-}
- 
-app.use(session(sess))
-
-// let sess;
 app.get('/*', (req, res) => {
-  // sess = req.session;
-  /*
-  * Here we have assign the 'session' to 'sess'.
-  * Now we can create any number of session variable we want.
-  * in PHP we do as $_SESSION['var name'].
-  */
-  // sess.username; // equivalent to $_SESSION['username'] in PHP.
-
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-
 
 //listen on the connection event for incoming sockets and log it to the console.
 //Notice that I’m not specifying any URL when I call io(), since it defaults to trying to connect to the host that serves the page.
@@ -63,27 +30,31 @@ io.on('connection', (socket) => {
     io.emit('user typing', typingMsg);
   });
 
-  //If you want to send a message to everyone except for a certain emitting socket, we have the broadcast flag for emitting from that socket:
-  // io.on('connection', (socket) => {
-  //   socket.broadcast.emit('hi');
-  // });
+  // send username to show who is online
+  socket.on('userjoin', (nickname) => {
+    socket.broadcast.emit('userjoin', nickname);
+  });
 
+  socket.on('loggedout', function(nickname){
+    socket.broadcast.emit('loggedout', nickname);
+    console.log(`${nickname} logged out` );
+  });
+  
   // each socket also fires a special 'disconnect' event:
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
 
-  // nickname setting
-  let users = [];
-  socket.on('send-nickname', function(nickname) {
-      socket.nickname = nickname;
-      users.push(socket.nickname);
-      console.log(users);
-  })
 });
 
 //make the http server listen on specified port.
 http.listen(PORT, () => {
     console.log(`listening on ${PORT}`);
 })
+
+// manual garbage collection
+setInterval(function(){
+  global.gc();
+  console.log('GC done')
+}, 1000*10);
 
