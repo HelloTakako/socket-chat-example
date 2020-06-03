@@ -4,6 +4,7 @@
 /build
 
 # misc
+test.drawio
 .DS_Store
 .env.local
 .env.development.local

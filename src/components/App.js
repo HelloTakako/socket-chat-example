@@ -38,7 +38,7 @@ function App() {
 
   return (
     <Router>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider>
         <Box
         width={1}
         className={classes.root}>      

@@ -54,19 +54,21 @@
         })
 
         //when the user types in a message, the server gets it as a chat message event.
-
+        let userNickname = document.cookie.slice(9, document.cookie.length);
         $('form').submit(function(e){
           e.preventDefault(); // prevents page reloading
-          socket.emit('chat message', $('#m').val());
+          socket.emit('chat message', userNickname + ": " + $('#m').val());
           $('#m').val('');
           typingMsg('');
           return false;
         });
 
+        
         //when we capture a chat message event we’ll include it in the page
         socket.on('chat message', function(msg){
+          // message 
           $('#messages').append($('<li>').text(msg));
-        });
+        });                          
       });
     </script>
   </body>
