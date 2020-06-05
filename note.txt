@@ -1,0 +1,62 @@
+- List of socket.io functions
+(from: https://dev.to/moz5691/socketio-for-simple-chatting---1k8n)
+
+//sending to sender-client only
+socket.emit('message', "this is a test"); 
+
+//sending to all clients except sender
+socket.broadcast.emit('message', "this is a test"); 
+
+//sending to all clients in 'game' room(channel) except sender
+socket.broadcast.to('game').emit('message', 'nice game'); 
+
+//sending to sender client, only if they are in 'game' room(channel)
+socket.to('game').emit('message', 'enjoy the game'); 
+
+//sending to individual socketid
+socket.broadcast.to(socketid).emit('message', 'for your eyes only'); 
+
+//sending to all clients, include sender
+io.emit('message', "this is a test"); 
+
+//sending to all clients in 'game' room(channel), include sender
+io.in('game').emit('message', 'cool game'); 
+
+//sending to all clients in namespace 'myNamespace', include sender
+io.of('myNamespace').emit('message', 'gg'); 
+
+//send to all connected clients
+socket.emit(); 
+
+//send to all connected clients except the one that sent the message
+socket.broadcast.emit(); 
+
+//event listener, can be called on client to execute on server
+socket.on(); 
+
+//for emiting to specific clients
+io.sockets.socket(); 
+
+//send to all connected clients (same as socket.emit)
+io.sockets.emit(); 
+
+//initial connection from a client.
+io.sockets.on() ; 
+
+- Manual garbage collection
+(from: https://stackoverflow.com/questions/30766753/nodejs-socket-io-simple-code-memory-leak)
+setInterval(function(){
+  global.gc();
+  console.log('GC done')
+}, 1000*30);
+
+
+- check performance of a function
+function someMethodIThinkMightBeSlow() {
+    const startTime = performance.now();
+
+    // Do the normal stuff for this function
+
+    const duration = performance.now() - startTime;
+    console.log(`someMethodIThinkMightBeSlow took ${duration}ms`);
+}

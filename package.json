@@ -7,6 +7,7 @@
     "@material-ui/icons": "^4.9.1",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "jquery": "^3.5.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
@@ -16,9 +17,10 @@
   "scripts": {
     "dev-start": "react-scripts start",
     "build": "react-scripts build",
-    "dev": "nodemon server.js",
+    "dev": "nodemon --expose-gc server.js",
     "start": "node server.js"
   },
+  "proxy": "http://localhost:8080",
   "devDependencies": {
     "nodemon": "^2.0.4"
   },

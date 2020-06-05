@@ -24,7 +24,7 @@ function generate(element) {
   );
 }
 
-export default function InteractiveList() {
+export default function MessageList() {
   const classes = useStyles();
 
   return (

@@ -7,11 +7,11 @@ import {
 
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import Home from '../pages/Home';
 import Room from '../pages/Room';
+
+import socket from '../service/socket';
 
 // custom style
 const useStyles = makeStyles({
@@ -23,35 +23,20 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
 
-  // dark mode setting
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-  const theme = React.useMemo(
-    () =>
-      createMuiTheme({
-        palette: {
-          type: prefersDarkMode ? 'dark' : 'light',
-        },
-      }),
-    [prefersDarkMode],
-  );
-
   return (
     <Router>
-      <ThemeProvider>
         <Box
         width={1}
         className={classes.root}>      
           <Switch>
             <Route path="/room">
-              <Room />
+              <Room socket={socket} />
             </Route>
             <Route path="/">
-              <Home />
+              <Home socket={socket} />
             </Route>
           </Switch>
         </Box>
-      </ThemeProvider>
     </Router>
   );
 }
