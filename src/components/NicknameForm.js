@@ -34,16 +34,16 @@ function NicknameForm () {
       // set user's nickname from user input
       const userTypedNickname = document.querySelector('input').value;
 
+      if(userTypedNickname !== ""){
       //set cookie
       // expire time
-      const expireHours = 2;
-      let date = new Date();
-      date.setTime(date.getTime()+(expireHours*60*60*1000));
-      const expires = date.toGMTString();
-      document.cookie = userTypedNickname !== "" ? `username=${userTypedNickname};` : "Anonymous";
+      document.cookie = `username=${userTypedNickname};`;
 
       // jump to /room
       window.location.href = '/room';
+    } else {
+      alert("You forgot to enter you nickname!")
+    }
   }
 
   const createRoom = () => {
