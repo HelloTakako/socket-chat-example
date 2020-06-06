@@ -20,7 +20,7 @@ export default function Room() {
     return (
         <div className={classes.root}>
             <Header />
-            <Grid container spacing={3}>
+            <Grid container spacing={3} id="room-container">
                 <Grid item xs={9}>
                     <MainContents />
                 </Grid>
