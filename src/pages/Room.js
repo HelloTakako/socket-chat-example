@@ -3,6 +3,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
+import Header from '../components/Header';
 import MainContents from '../components/MainContents';
 import SubContents from '../components/SubContents';
 
@@ -18,6 +19,7 @@ export default function Room() {
 
     return (
         <div className={classes.root}>
+            <Header />
             <Grid container spacing={3}>
                 <Grid item xs={9}>
                     <MainContents />
