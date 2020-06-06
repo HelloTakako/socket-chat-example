@@ -34,24 +34,15 @@ function NicknameForm (props) {
       // set user's nickname from user input
       const userTypedNickname = document.querySelector('input').value;
 
-      //allow user to join a room if they typed their nickname
       if(userTypedNickname !== ""){
-
       //set cookie
       // expire time
-      // const expireHours = 2;
-      // let date = new Date();
-      // date.setTime(date.getTime()+(expireHours*60*60*1000));
-      // const expires = ` expires=${date.toGMTString()};`;
-      // console.log(expires);
-      // const nickname = userTypedNickname;
-      document.cookie = `username=${userTypedNickname}; path=/room; SameSite=Strict; Secure; HttpOnly`;
-      // document.cookie = nickname + expires + " HttpOnly;";
+      document.cookie = `username=${userTypedNickname};`;
 
       // jump to /room
-      setTimeout(function(){window.location.href = '/room';}, 500);
+      window.location.href = '/room';
     } else {
-      alert('You forgot to enter your nickname!');
+      alert("You forgot to enter you nickname!")
     }
   }
 

@@ -5,12 +5,11 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-function Header (props) {
+function Header () {
 
   const value = 0;
 
   function clearCookie(){
-    props.socket.emit('loggedout', document.cookie);
     document.cookie = "username= ; expires = Thu, 01 Jan 1970 00:00:00 GMT" 
   }
   

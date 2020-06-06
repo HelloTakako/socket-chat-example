@@ -72,7 +72,7 @@ export default function Room(props) {
 
     return (
         <div className={classes.root}>
-            <Header socket={props.socket}/>
+            <Header />
             <Grid container spacing={3}>
                 <Grid item xs={9}>
                     <MainContents socket={props.socket} />
