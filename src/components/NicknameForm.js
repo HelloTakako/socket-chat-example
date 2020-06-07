@@ -38,6 +38,7 @@ function NicknameForm (props) {
       //set cookie
       // expire time
       document.cookie = `username=${userTypedNickname};`;
+      props.socket.emit('userjoin', userTypedNickname);
 
       // jump to /room
       window.location.href = '/room';

@@ -26,15 +26,12 @@ export default function OnlineUsersList(props) {
 
     useEffect(() => {
 
-    // User joins the room
-    // send user name to server
-    props.socket.emit('userjoin', document.cookie);
-
     // // get joined user name from server, update 'onlineUsers' variable.
-    props.socket.on('userjoin', function(nickname){
-        const slicedName = nickname.slice(9, nickname.length);
-        setOnlineUsers(onlineUsers=>[...onlineUsers, slicedName]);
-    })
+    // props.socket.on('userjoin', function(nickname){
+    //     // const slicedName = nickname.slice(9, nickname.length);
+    //     // setOnlineUsers(onlineUsers=>[...onlineUsers, slicedName]);
+    //     setOnlineUsers(onlineUsers=>[nickname.username]);
+    // })
 
     //remove a user from the online list when logging out
     props.socket.on('loggedout', function(nickname){
