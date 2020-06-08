@@ -13,9 +13,10 @@ const {
   userLeave,
   getRoomUsers
 } = require('./src/utils/users');
+// room id util
+const makeId = require('./src/utils/room');
 
 const path = require('path');
-// const session = require('express-session');
 
 // port for Heroku deploy
 const PORT = process.env.PORT || 8080;
@@ -26,33 +27,57 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-const adminName = "AdminBot"
+const adminName = "AdminBot";
 
 //listen on the connection event for incoming sockets and log it to the console.
 //Notice that I’m not specifying any URL when I call io(), since it defaults to trying to connect to the host that serves the page.
 io.on('connection', (socket) => {
-  //send the message to everyone, including the sender.
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', formatMessage('User', msg));
+
+  socket.on('go-to-room', ([username, room]) => {
+
+    const userId = makeId(15);
+    let roomId = room === "public" ? "public" : makeId(10);  
+    const user = userJoin(userId, username, roomId);
+  
+    socket.join(user.room);
+    socket.emit('jump-to-room', [user.room, user.id]);
+
+
+    socket.emit(
+        'message', 
+        formatMessage(adminName, `Welcome, ${user.username}!`)
+      );
+
+
+    socket.broadcast
+      .to(user.room)
+      .emit(
+        'chat message', 
+        formatMessage(adminName, `${user.username} has joined`)
+      );
+
+    io.to(user.room).emit('room-users', {
+      room: user.room,
+      users: getRoomUsers(user.room)
+    });
+    
   });
 
   // show "User is typing" message when someone is typing
-  socket.on('user typing', (typingMsg) => {
-    io.emit('user typing', typingMsg);
+  socket.on('user typing', ({typingMsg, userId}) => {
+    const user = getCurrentUser(userId); 
   });
 
-  // send username to show who is online
-  socket.on('userjoin', (username) => {
-    const user = userJoin(socket.id, username);
-    socket.broadcast.emit('userjoin-admin', formatMessage(adminName, `${username} has joined`));
-
-    // for individual room connection
-    // socket.join(user.room);
+  
+  //send the message to everyone, including the sender.
+  socket.on('chat message', ({msg, userId}) => {
+    const user = getCurrentUser(userId); 
+    // io.to(user.room).emit('chat message', formatMessage(user.username, msg));
   });
 
-  socket.on('loggedout', function(nickname){
-    socket.broadcast.emit('userloggedout-admin', formatMessage(nickname, `${nickname} has left`));
-  });
+  // socket.on('loggedout', function(nickname){
+  //   socket.broadcast.to(user.room).emit('userloggedout-admin', formatMessage(nickname, `${nickname} has left`));
+  // });
   
   // each socket also fires a special 'disconnect' event:
   socket.on('disconnect', () => {
@@ -68,6 +93,6 @@ http.listen(PORT, () => {
 // manual garbage collection
 setInterval(function(){
   global.gc();
-  console.log('GC done')
+  // console.log("GC Done");
 }, 1000*10);
 

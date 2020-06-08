@@ -11,7 +11,7 @@ function Header (props) {
 
   const clearData = () => {
     props.socket.emit('loggedout', document.cookie.slice(9, document.cookie.length));
-    document.cookie = "username= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";  
+    document.cookie = "userId= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";  
   }
   
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -29,23 +29,20 @@ const useStyles = makeStyles({
 export default function Timeline(props) {
     const classes = useStyles();
 
-    //when we capture a chat message event we’ll include it in the page
-    props.socket.on('chat message', function(msg){
-        // messages 
-        $('#messages').append($('<li>').html(`${msg.text} <span class="msg-time">${msg.time}</span>`));
-        // scroll to the bottom of page
-        const height = $('#messages').prop('scrollHeight');
-        $('#messages').scrollTop(height);
-    });
+    useEffect(() => {
+        // Update the document title using the browser API
+        //when we capture a chat message event we’ll include it in the page
+        props.socket.on('message', function(msg){
+            console.log(msg)
+            // messages 
+            $('#messages')
+                .append($('<li>').html(`${msg.username} : ${msg.text} <span class="msg-time">${msg.time}</span>`));
+            // scroll to the bottom of page
+            const height = $('#messages').prop('scrollHeight');
+            $('#messages').scrollTop(height);
+        });
+    }, [props.socket]);
 
-    // automatic message when a user joined/left
-    props.socket.on('userjoin-admin', function(msg){
-        // messages 
-        $('#messages').append($('<li>').text(msg.text));
-        // scroll to the bottom of page
-        const height = $('#messages').prop('scrollHeight');
-        $('#messages').scrollTop(height);
-    });
     props.socket.on('userloggedout-admin', function(msg){
         // messages 
         $('#messages').append($('<li>').text(msg.text));

@@ -24,13 +24,14 @@ const useStyles = makeStyles((theme) => ({
 function TextInput (props) {
 
   const classes = useStyles();
+  const userId = document.cookie.slice(7, document.cookie.length);
 
   useEffect(()=>{
 
     // show "User is typing" message        
     // on smartphone, show the message when the user focused on the message box
-    function typingMsg(msg){
-        props.socket.emit('user typing', msg);
+    function typingMsg({msg, userId}){
+        props.socket.emit('user typing', {msg, userId});
     }
 
     if( navigator.userAgent.match(/Android/i)
@@ -41,7 +42,7 @@ function TextInput (props) {
         || navigator.userAgent.match(/Windows Phone/i) )
     {
         $("#m").on('focus', function(e){
-        typingMsg('User is typing...');
+        typingMsg('User is typing...', userId);
         })
     } 
     else // on pc 
@@ -59,16 +60,16 @@ function TextInput (props) {
     })
 
     //when the user types in a message, the server gets it as a chat message event.
-    let userNickname = document.cookie.slice(9, document.cookie.length);
     $('form').submit(function(e){
         e.preventDefault(); // prevents page reloading
-        props.socket.emit('chat message', userNickname + ": " + $('#m').val());
+        const msg = $('#m').val();
+        props.socket.emit('chat message', { msg, userId});
         $('#m').val('');
         typingMsg('');
         return false;
     });
 
-}, []);
+}, [props.socket, userId]);
 
   return (
     <form className={classes.root} action="" id="text-input">     

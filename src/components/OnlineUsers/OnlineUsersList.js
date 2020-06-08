@@ -33,19 +33,21 @@ export default function OnlineUsersList(props) {
     //     setOnlineUsers(onlineUsers=>[nickname.username]);
     // })
 
-    //remove a user from the online list when logging out
-    props.socket.on('loggedout', function(nickname){
-        const slicedName = nickname.slice(9, nickname.length);
-        console.log(onlineUsers, slicedName, nickname);
-        setOnlineUsers(onlineUsers);
-    })
+
 
     // show "disconnected" message when a user disconnected from the socket
     props.socket.on('disconnected', function(nickname){
         console.log(document.cookie.slice(9, document.cookie.length) + "disconnected")
     })
 
-    }, []);
+    }, [props.socket]);
+
+    //remove a user from the online list when logging out
+    props.socket.on('loggedout', function(nickname){
+        const slicedName = nickname.slice(9, nickname.length);
+        console.log(onlineUsers, slicedName, nickname);
+        setOnlineUsers(onlineUsers);
+    })
 
     return (
         <Box className={classes.root} p={2}>
