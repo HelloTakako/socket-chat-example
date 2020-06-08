@@ -28,12 +28,12 @@ const useStyles = makeStyles({
 
 export default function Timeline(props) {
     const classes = useStyles();
+    
 
     useEffect(() => {
         // Update the document title using the browser API
         //when we capture a chat message event we’ll include it in the page
-        props.socket.on('message', function(msg){
-            console.log(msg)
+        props.socket.on('message', function(msg){    
             // messages 
             $('#messages')
                 .append($('<li>').html(`${msg.username} : ${msg.text} <span class="msg-time">${msg.time}</span>`));
@@ -50,6 +50,7 @@ export default function Timeline(props) {
         const height = $('#messages').prop('scrollHeight');
         $('#messages').scrollTop(height);
     });
+
 
     return (
         <Box m={2} className={classes.root}>

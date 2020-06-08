@@ -30,8 +30,8 @@ function TextInput (props) {
 
     // show "User is typing" message        
     // on smartphone, show the message when the user focused on the message box
-    function typingMsg({msg, userId}){
-        props.socket.emit('user typing', {msg, userId});
+    function typingMsg([msg, userId]){
+        props.socket.emit('user typing', [msg, userId]);
     }
 
     if( navigator.userAgent.match(/Android/i)
@@ -63,7 +63,7 @@ function TextInput (props) {
     $('form').submit(function(e){
         e.preventDefault(); // prevents page reloading
         const msg = $('#m').val();
-        props.socket.emit('chat message', { msg, userId});
+        props.socket.emit('message', [msg, userId]);
         $('#m').val('');
         typingMsg('');
         return false;

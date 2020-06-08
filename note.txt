@@ -60,3 +60,6 @@ function someMethodIThinkMightBeSlow() {
     const duration = performance.now() - startTime;
     console.log(`someMethodIThinkMightBeSlow took ${duration}ms`);
 }
+
+- namespace for multiple rooms
+https://socket.io/docs/rooms-and-namespaces/
