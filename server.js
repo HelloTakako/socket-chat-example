@@ -51,10 +51,36 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-
+const botName = "Anonymous Admin";
 //listen on the connection event for incoming sockets and log it to the console.
 //Notice that I’m not specifying any URL when I call io(), since it defaults to trying to connect to the host that serves the page.
 io.on('connection', (socket) => {
+
+  socket.on('joinRoom', (username) => {
+    // Broadcast when a user connects
+    socket.broadcast
+    .emit(
+      'joinRoom',
+      formatMessage(`${username} has joined the chat`)
+    );
+
+  })
+
+  // socket.on('joinRoomUser', (username) => {
+  //   socket.emit(
+  //     'joinRoomUser',
+  //     formatMessage(`Welcome, ${username}!`)
+  //   );
+  // })
+
+  socket.on('userLeft', (username) => {
+    // Broadcast when a user left
+    socket.broadcast
+    .emit(
+      'userLeft',
+      formatMessage(`${username} has left the chat`)
+    );
+  })
 
   // show "User is typing" message when someone is typing
   socket.on('user typing', (typingMsg) => {
@@ -71,7 +97,6 @@ io.on('connection', (socket) => {
   socket.on('send-nickname', function(nickname) {
       socket.nickname = nickname;
       users.push(socket.nickname);
-      console.log(users);
   })
 
   //send the message to everyone, including the sender.

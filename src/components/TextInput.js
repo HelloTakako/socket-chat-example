@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         position: 'fixed',
         bottom: '0',
-        width: '85vw',
+        width: '80vw',
         display: 'flex',
       '& > *': {
         margin: theme.spacing(1),
