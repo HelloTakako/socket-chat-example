@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     },
     typing: {
         position: "fixed",
-        bottom: "100px"
+        bottom: "70px"
     },
     messages: {
         height: "75vh",
@@ -19,8 +19,6 @@ const useStyles = makeStyles({
         }    
     }
   });
-
-  
 
 export default function Timeline() {
     const classes = useStyles();
