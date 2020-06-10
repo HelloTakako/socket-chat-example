@@ -2,6 +2,9 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import $ from 'jquery';
+import openSocket from 'socket.io-client';
+const socket = openSocket.io('http://localhost:8080');
 
 const useStyles = makeStyles({
     root: {
@@ -9,7 +12,7 @@ const useStyles = makeStyles({
     },
     typing: {
         position: "fixed",
-        bottom: "100px"
+        bottom: "70px"
     },
     messages: {
         height: "75vh",
@@ -20,7 +23,14 @@ const useStyles = makeStyles({
     }
   });
 
-  
+//when we capture a chat message event we’ll include it in the page
+socket.on('chat message', function(msg){
+    // messages 
+    $('#messages').append($('<li>').html(`${msg.text} <span class="msg-time">${msg.time}</span>`));
+    // scroll to the bottom of page
+    const height = $('#messages').prop('scrollHeight');
+    $('#messages').scrollTop(height);
+});
 
 export default function Timeline() {
     const classes = useStyles();

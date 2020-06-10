@@ -52,7 +52,6 @@ table {
 
 /* custom */
 
-
 :root {
 	--dark-bg-primary: #303030;
 	--dark-bg-secondary: #424242;
@@ -81,8 +80,18 @@ body{
 	color: var(--dark-text-primary);
 }
 
+.msg-time {
+	color: var(--dark-bg-button);
+	font-size: 80%;
+	margin-left: 10px;
+}
+
+/* dark mode */
 .darkmode-css{
 	color: var(--dark-text-secondary);
+}
+.darkmode-css .msg-time {
+	color: var(--dark-text-disabled);
 }
 .darkmode-css .header a{
 	color: var(--dark-text-secondary) !important;
@@ -141,3 +150,4 @@ body.darkmode-css{
 	  right: 65px;
 	  color: #666;
   }
+
