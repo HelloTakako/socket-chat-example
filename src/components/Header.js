@@ -14,7 +14,7 @@ function Header () {
   }
   
   return (
-    <Paper square>
+    <Paper className="header" square>
       <Tabs
         indicatorColor="primary"
         textColor="primary"

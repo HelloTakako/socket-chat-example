@@ -49,3 +49,95 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+/* custom */
+
+
+:root {
+	--dark-bg-primary: #303030;
+	--dark-bg-secondary: #424242;
+	--dark-bg-button: #777777;
+	--dark-text-primary: #fff;
+	--dark-text-secondary: rgba(255, 255, 255, 0.7);
+	--dark-text-disabled: rgba(255, 255, 255, 0.5);
+	--dark-bg-darkest: #101010;
+  }
+
+body{
+	background-color: #ddd;
+}
+
+#m, #send-button {
+	border: none;
+	border-radius: 5px;
+	padding: 10px;
+}
+#m{
+	margin: 15px 0 15px 15px;
+}
+#send-button{
+	margin: 15px;
+	background-color: var(--dark-bg-button);
+	color: var(--dark-text-primary);
+}
+
+.darkmode-css{
+	color: var(--dark-text-secondary);
+}
+.darkmode-css .header a{
+	color: var(--dark-text-secondary) !important;
+}
+body.darkmode-css{
+	background-color: var(--dark-bg-primary);
+}
+.darkmode-css .header{
+	background-color: var(--dark-text-disabled);
+}
+.darkmode-css #subContents{
+	background-color: var(--dark-bg-secondary);
+}
+.darkmode-css #m {
+	background-color: var(--dark-text-secondary);
+}
+.darkmode-css #send-button {
+	background-color: var(--dark-bg-darkest);
+	border: none;
+	color: var(--dark-text-secondary);
+}
+.darkmode-css .darkmode-icon{
+	color: var(--dark-bg-darkest);
+}
+
+.darkmode-wrapper{
+	padding:5px;
+	border-radius:15px;
+	background-color: #ccc;
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+  }
+  
+  #darkmode-toggleButton {
+	width: 20px;
+	height: 20px;
+	background-color: #888;
+	border-radius:50%;
+  }
+  
+  .moveToRight{
+	margin-left:20px;
+	background-color: var(--dark-bg-secondary) !important;
+  }
+  
+  #darkmode-toggleButton {
+	transition:0.5s ease;  
+  }
+
+  .darkmode-icon{
+	  position: absolute;
+	  top: 13px;
+	  right: 65px;
+	  color: #666;
+  }

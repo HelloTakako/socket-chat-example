@@ -12,7 +12,7 @@ const useStyles = makeStyles({
         bottom: "100px"
     },
     messages: {
-        height: "70vh",
+        height: "75vh",
         overflow: "scroll",
         '& li' :{
             marginBottom: '10px'
