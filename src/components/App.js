@@ -7,8 +7,6 @@ import {
 
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import Home from '../pages/Home';
 import Room from '../pages/Room';
@@ -23,22 +21,8 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
 
-  // dark mode setting
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-  const theme = React.useMemo(
-    () =>
-      createMuiTheme({
-        palette: {
-          type: prefersDarkMode ? 'dark' : 'light',
-        },
-      }),
-    [prefersDarkMode],
-  );
-
   return (
     <Router>
-      <ThemeProvider>
         <Box
         width={1}
         className={classes.root}>      
@@ -51,7 +35,6 @@ function App() {
             </Route>
           </Switch>
         </Box>
-      </ThemeProvider>
     </Router>
   );
 }

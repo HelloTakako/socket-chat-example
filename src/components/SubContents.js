@@ -16,13 +16,14 @@ const useStyles = makeStyles((theme) => ({
         right: 0,
         height: '100vh',
         overflow: "hidden",
+        width: '15vw',
     },
   }));
 
 export default function SubContents() {
     const classes = useStyles();
     return (
-        <Box className={classes.root} p={2}>
+        <Box id="subContents" className={classes.root} p={2}>
             <List aria-label="online-user">
                 <ListItem>
                     <ListItemAvatar>

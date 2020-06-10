@@ -5,17 +5,18 @@ const useStyles = makeStyles((theme) => ({
     root: {
         position: 'fixed',
         bottom: '0',
-        width: '100vw',
+        width: '85vw',
         display: 'flex',
       '& > *': {
         margin: theme.spacing(1),
       },
     },
     textInput: {
-      width: '65vw',
+      width: '80%',
+      padding: '10px'
     },
     submitButton: {
-        width: '10vw',
+        width: '20%',
         border: 'none'
     }
   }));
@@ -27,7 +28,7 @@ function TextInput () {
   return (
     <form className={classes.root} action="" id="text-input">     
         <input type="text" id="m" className={classes.textInput} />
-        <button><i className="material-icons">send</i></button>
+        <button id="send-button"><i className="material-icons">send</i></button>
     </form>
   );
 }
