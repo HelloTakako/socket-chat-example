@@ -46,9 +46,9 @@ function NicknameForm () {
     }
   }
 
-  const createRoom = () => {
-    console.log("under construction");
-}
+//   const createRoom = () => {
+//     console.log("under construction");
+// }
 
   return (
     <div className={classes.root}>

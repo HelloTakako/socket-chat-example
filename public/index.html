@@ -62,7 +62,16 @@
           $('#m').val('');
           typingMsg('');
           return false;
-        });                       
+        });  
+        
+        // when we capture a chat message event we’ll include it in the page
+        socket.on('chat message', function(msg){
+            // messages 
+            $('#messages').append($('<li>').html(`${msg.text} <span class="msg-time">${msg.time}</span>`));
+            // scroll to the bottom of page
+            const height = $('#messages').prop('scrollHeight');
+            $('#messages').scrollTop(height);
+        });
       });
     
     

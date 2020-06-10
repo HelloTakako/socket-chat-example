@@ -8,7 +8,7 @@ const io = require('socket.io')(http);
 const formatMessage = require('./src/utils/messages');
 
 const path = require('path');
-const session = require('express-session');
+// const session = require('express-session');
 
 // port for Heroku deploy
 const PORT = process.env.PORT || 8080;
@@ -24,19 +24,19 @@ app.use(express.static(path.join(__dirname, 'build')));
  * Make sure this is defined before any of your routes
  * that make use of the session.
  */
-var sess = {
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { user : '1' }
-}
+// var sess = {
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { user : '1' }
+// }
  
-if (app.get('env') === 'production') {
-  app.set('trust proxy', 1) // trust first proxy
-  sess.cookie.secure = true // serve secure cookies
-}
+// if (app.get('env') === 'production') {
+//   app.set('trust proxy', 1) // trust first proxy
+//   sess.cookie.secure = true // serve secure cookies
+// }
  
-app.use(session(sess))
+// app.use(session(sess))
 
 // let sess;
 app.get('/*', (req, res) => {
