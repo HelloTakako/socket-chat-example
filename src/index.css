@@ -65,7 +65,12 @@ table {
 body{
 	background-color: #ddd;
 }
-
+.join-left-message{
+	background: var(--dark-text-disabled);
+	padding: 10px;
+	border-radius: 5px;
+	color: var(--dark-bg-secondary);
+}
 #m, #send-button {
 	border: none;
 	border-radius: 5px;
@@ -90,6 +95,11 @@ body{
 .darkmode-css{
 	color: var(--dark-text-secondary);
 }
+.darkmode-css .join-left-message{
+	background: var(--dark-bg-darkest);
+	color: var(--dark-text-disabled);
+}
+
 .darkmode-css .msg-time {
 	color: var(--dark-text-disabled);
 }

@@ -3,6 +3,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 
+// import io from 'socket.io-client';
+
 const useStyles = makeStyles({
     root: {
         fontFamily: 'Roboto'    
@@ -22,6 +24,10 @@ const useStyles = makeStyles({
 
 export default function Timeline() {
     const classes = useStyles();
+
+    // const socket = io();
+
+    // socket.emit("joinRoomUser", document.cookie.slice(9, document.cookie.length));
 
     return (
         <Box m={2} className={classes.root}>

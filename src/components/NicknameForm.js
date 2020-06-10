@@ -8,6 +8,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 
+import io from 'socket.io-client';
+
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -29,6 +31,8 @@ const useStyles = makeStyles({
 
 function NicknameForm () {
   const classes = useStyles();
+
+  const socket = io();
   
   const joinPublicRoom = () => {
       // set user's nickname from user input
@@ -38,6 +42,7 @@ function NicknameForm () {
       //set cookie
       // expire time
       document.cookie = `username=${userTypedNickname};`;
+      socket.emit("joinRoom", userTypedNickname);
 
       // jump to /room
       window.location.href = '/room';
