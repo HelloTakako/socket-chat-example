@@ -2,6 +2,7 @@ const express = require('express');
 //Express initializes app to be a function handler that you can supply to an HTTP server.
 const app = require('express')();
 const http = require('http').createServer(app);
+const bodyParser = require('body-parser');
 //initialize a new instance of socket.io by passing the http (the HTTP server) object
 const io = require('socket.io')(http);
 // to format time
@@ -18,6 +19,7 @@ const PORT = process.env.PORT || 8080;
 //   res.sendFile(__dirname + '/build/index.html');
 // });
 
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'build')));
 
 /* session management.
